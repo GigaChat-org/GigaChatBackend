@@ -1,0 +1,22 @@
+{
+  "dependencies": {
+    "express": "^4.21.2",
+    "socket.io": "^4.8.1"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon index.js"
+  },
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "server",
+  "main": "server.js",
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  },
+  "keywords": [
+    "server"
+  ],
+  "author": "Himanshu Dey",
+  "license": "ISC"
+}
