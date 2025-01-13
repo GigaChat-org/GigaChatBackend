@@ -21,6 +21,11 @@ const cloudinary = require('cloudinary').v2;
 const app = express();
 const PORT = 3000;
 
+app.use(cors({ credentials: true, origin: 'http://localhost:5173' }));
+app.use(express.json());
+app.use(cookieParser());
+
+
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
@@ -29,9 +34,6 @@ const io = new Server(server, {
   },
 });
 
-app.use(cors({ origin: 'http://localhost:5173' }));
-app.use(express.json());
-app.use(cookieParser());
 
 cloudinary.config({ 
   cloud_name: process.env.CLOUD_NAME,
@@ -175,6 +177,9 @@ app.post('/register', async (req,res) => {
 app.post('/login-admin', async (req,res) => {
   const {username,password} = req.body;
   const userDoc = await User.findOne({username});
+  if (!userDoc) {
+    return res.status(400).json({ message: 'User not found' });
+  }
   const passOk = bcrypt.compareSync(password, userDoc.password);
   if (passOk) {
     // logged in
